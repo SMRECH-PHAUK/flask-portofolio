@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        nav {
+            background-color: #333;
+            overflow: hidden;
+            padding: 10px;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            background-color: #4CAF50;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .gallery-section {
+            margin-bottom: 3rem;
+        }
+        .image-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+        .image-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .image-card:hover img {
+            transform: scale(1.05);
+        }
+        .download-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .image-card:hover .download-btn {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<nav>
+        <a href="/">Home</a>
+        <a href="/university">University Project</a>
+        <a href="/project2">Project 2</a>
+    </nav>
+    <div class="container mt-5">
+        <h1 class="text-center mb-5">University Gallery</h1>
+        <a href="{{ url_for('university.index') }}" class="btn btn-secondary mb-4">Back to Home</a>
+
+        <!-- Campus Section -->
+        <div class="gallery-section">
+            <h2 class="mb-4">Campus</h2>
+            <div class="row">
+                {% for image in campus_images %}
+                <div class="col-md-4 mb-4">
+                    <div class="image-card">
+                        <img src="{{ url_for('static', filename='uploads/campus/' + image) }}" alt="Campus Image">
+                        <a href="{{ url_for('university.download_image', category='campus', filename=image) }}" class="download-btn">Download</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <form method="POST" action="{{ url_for('university.upload_image', category='campus') }}" enctype="multipart/form-data" class="mt-3">
+                <div class="input-group">
+                    <input type="file" name="file" accept="image/*" class="form-control" required>
+                    <button type="submit" class="btn btn-success">Upload Campus Image</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Academic Activities Section -->
+        <div class="gallery-section">
+            <h2 class="mb-4">Academic Activities</h2>
+            <div class="row">
+                {% for image in academic_images %}
+                <div class="col-md-4 mb-4">
+                    <div class="image-card">
+                        <img src="{{ url_for('static', filename='uploads/academic/' + image) }}" alt="Academic Activity Image">
+                        <a href="{{ url_for('university.download_image', category='academic', filename=image) }}" class="download-btn">Download</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <form method="POST" action="{{ url_for('university.upload_image', category='academic') }}" enctype="multipart/form-data" class="mt-3">
+                <div class="input-group">
+                    <input type="file" name="file" accept="image/*" class="form-control" required>
+                    <button type="submit" class="btn btn-success">Upload Academic Activity Image</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Student Activities Section -->
+        <div class="gallery-section">
+            <h2 class="mb-4">Student Curriculum & Extra-Curricular Activities</h2>
+            <div class="row">
+                {% for image in student_images %}
+                <div class="col-md-4 mb-4">
+                    <div class="image-card">
+                        <img src="{{ url_for('static', filename='uploads/student/' + image) }}" alt="Student Activity Image">
+                        <a href="{{ url_for('university.download_image', category='student', filename=image) }}" class="download-btn">Download</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <form method="POST" action="{{ url_for('university.upload_image', category='student') }}" enctype="multipart/form-data" class="mt-3">
+                <div class="input-group">
+                    <input type="file" name="file" accept="image/*" class="form-control" required>
+                    <button type="submit" class="btn btn-success">Upload Student Activity Image</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

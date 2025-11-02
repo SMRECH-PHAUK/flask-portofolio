@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database ER Diagram</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+</head>
+<body>
+    <h1>University Database ER Diagram</h1>
+    <div class="mermaid">
+erDiagram
+    Student ||--o{ Enrollment : enrolls
+    Student ||--o{ TuitionPayment : pays
+    Professor ||--o{ Course : teaches
+    Course ||--o{ Enrollment : has
+    Course ||--o{ TuitionPayment : for
+
+    Student {
+        string id PK
+        string name
+        string email UK
+        string major
+    }
+
+    Professor {
+        string id PK
+        string name
+        string email UK
+        string department
+    }
+
+    Course {
+        int id PK
+        string name
+        string code UK
+        int credits
+        string professor_id FK
+    }
+
+    Enrollment {
+        int id PK
+        string student_id FK
+        int course_id FK
+        string grade
+    }
+
+    TuitionPayment {
+        int id PK
+        string student_id FK
+        int course_id FK
+        float amount_paid
+        datetime payment_date
+        string status
+    }
+    </div>
+</body>
+</html>

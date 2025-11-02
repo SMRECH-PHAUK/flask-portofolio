@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        nav {
+            background-color: #333;
+            overflow: hidden;
+            padding: 10px;
+        }
+        nav a {
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+            font-size: 18px;
+            background-color: #4CAF50;
+            border: 2px solid #4CAF50;
+            border-radius: 8px;
+            margin: 0 10px;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #45a049;
+            border-color: #45a049;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Payment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<nav>
+        <a href="/">Home</a>
+        <a href="/university">University Project</a>
+        <a href="/project2">Project 2</a>
+    </nav>
+    <div class="container mt-5">
+        <h1>Edit Tuition Payment</h1>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ form.student_id.label(class="form-label") }}
+                {{ form.student_id(class="form-select") }}
+                {% if form.student_id.errors %}
+                    <div class="text-danger">
+                        {% for error in form.student_id.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.course_id.label(class="form-label") }}
+                {{ form.course_id(class="form-select") }}
+                {% if form.course_id.errors %}
+                    <div class="text-danger">
+                        {% for error in form.course_id.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.amount_paid.label(class="form-label") }}
+                {{ form.amount_paid(class="form-control", placeholder="Amount in USD") }}
+                {% if form.amount_paid.errors %}
+                    <div class="text-danger">
+                        {% for error in form.amount_paid.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            <div class="mb-3">
+                {{ form.status.label(class="form-label") }}
+                {{ form.status(class="form-select") }}
+                {% if form.status.errors %}
+                    <div class="text-danger">
+                        {% for error in form.status.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {{ form.submit(class="btn btn-primary") }}
+        </form>
+        <a href="{{ url_for('university.payments') }}" class="btn btn-secondary mt-3">Back to Payments</a>
+    </div>
+</body>
+</html>
